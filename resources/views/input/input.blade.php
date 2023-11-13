@@ -41,8 +41,8 @@
                                         <td>
                                             <select name="PartNumber" class="form-control">
                                                 <option hidden>Choose</option>
-                                                <option value="jjk123"> jjk123</option>
-                                                <option value="best777">best777</option>
+                                                <option value="Piston 1">Piston 1</option>
+                                                <option value="Piston 2">Piston 2</option>
                                             </select>
                                         </td>
                                         <td>
