@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row">
@@ -34,7 +36,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <input type="date" name="Tanggal" id="from-datepicker"/>
+                                            <input type="date" name="Tanggal" id="from-datepicker" />
                                         </td>
                                         <td>
                                             <select name="PartNumber" class="form-control">
@@ -52,7 +54,9 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" name="Quantity" id="quantity-input" class="form-control" min="0" step="1" value="0" disabled>
+                                            <input type="number" name="Quantity" id="quantity-input"
+                                                class="form-control" min="0" step="1" value="0"
+                                                disabled>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -87,15 +91,19 @@
                                         <td>{{ $input->Operations }}</td>
                                         <td>{{ $input->Quantity }}</td>
                                         <td class="text-center">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('inputs.destroy', $input->id) }}" method="POST">
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                                action="{{ route('inputs.destroy', $input->id) }}" method="POST">
                                                 @csrf
-                                                <a href="#" class="btn btn-sm btn-primary edit-button" data-toggle="modal" data-target="#editModal-{{ $input->id }}" data-operations="{{ $input->Operations }}">Edit</a>
+                                                <a href="#" class="btn btn-sm btn-primary edit-button"
+                                                    data-toggle="modal" data-target="#editModal-{{ $input->id }}"
+                                                    data-operations="{{ $input->Operations }}">Edit</a>
                                             </form>
                                             <form action="{{ route('inputs.destroy', $input->id) }}" method="POST"
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin?')">Delete</button>
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Apakah Anda yakin?')">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -111,8 +119,9 @@
             </div>
         </div>
 
-        @foreach($inputs as $input)
-            <div class="modal fade" id="editModal-{{ $input->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        @foreach ($inputs as $input)
+            <div class="modal fade" id="editModal-{{ $input->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -122,23 +131,27 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="editForm-{{ $input->id }}" method="POST" action="{{ route('inputs.update', ['input' => $input->id]) }}">
+                            <form id="editForm-{{ $input->id }}" method="POST"
+                                action="{{ route('inputs.update', ['input' => $input->id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="editTanggal">Tanggal</label>
-                                    <input type="date" name="Tanggal" class="form-control" id="editTanggal-{{ $input->id }}">
+                                    <input type="date" name="Tanggal" class="form-control"
+                                        id="editTanggal-{{ $input->id }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="editPartNumber">PartNumber</label>
-                                    <select name="PartNumber" class="form-control" id="editPartNumber-{{ $input->id }}">
+                                    <select name="PartNumber" class="form-control"
+                                        id="editPartNumber-{{ $input->id }}">
                                         <option value="jjk123">jjk123</option>
                                         <option value="best777">best777</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="editOperations">Operations</label>
-                                    <select name="Operations" class="form-control edit-operations-select" id="editOperations-{{ $input->id }}">
+                                    <select name="Operations" class="form-control edit-operations-select"
+                                        id="editOperations-{{ $input->id }}">
                                         <option value="Produksi">Produksi</option>
                                         <option value="PM">PM</option>
                                         <option value="NOD">NOD</option>
@@ -146,13 +159,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for "editQuantity">Quantity</label>
-                                    <input type="number" class="form-control edit-quantity-input" name="Quantity" id="editQuantity-{{ $input->id }}" min="0" step="1" @if($input->Operations !== 'Produksi') disabled @endif value="{{ $input->Operations === 'Produksi' ? $input->Quantity : '' }}">
+                                    <input type="number" class="form-control edit-quantity-input" name="Quantity"
+                                        id="editQuantity-{{ $input->id }}" min="0" step="1"
+                                        @if ($input->Operations !== 'Produksi') disabled @endif
+                                        value="{{ $input->Operations === 'Produksi' ? $input->Quantity : '' }}">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success save-edit-button" data-inputid="{{ $input->id }}">Simpan</button>
+                            <button type="button" class="btn btn-success save-edit-button"
+                                data-inputid="{{ $input->id }}">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -160,7 +177,7 @@
 
             <script>
                 $(document).ready(function() {
-                    $('#editModal-{{ $input->id }}').on('show.bs.modal', function (event) {
+                    $('#editModal-{{ $input->id }}').on('show.bs.modal', function(event) {
                         var modal = $(this);
                         var selectedOperations = modal.find("#editOperations-{{ $input->id }}").val();
                         var quantityInput = modal.find("#editQuantity-{{ $input->id }}");
@@ -177,7 +194,8 @@
         @endforeach
     </div>
 
-    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+        style="min-height: 200px;">
         <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <strong class="mr-auto">Bootstrap</strong>
@@ -198,8 +216,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <script type="text/javascript">
-
-
         $(document).ready(function() {
             $("#from-datepicker").datepicker({
                 format: 'yyyy-mm-dd'
@@ -230,55 +246,57 @@
             $(modalId).modal("show");
         });
 
-        $('#editModal-{{ $input->id }}').on('show.bs.modal', function (event) {
-    var modal = $(this);
-    var selectedOperations = modal.find("#editOperations-{{ $input->id }}").val();
-    var quantityInput = modal.find("#editQuantity-{{ $input->id }}");
+        $('#editModal-{{ $input->id }}').on('show.bs.modal', function(event) {
+            var modal = $(this);
+            var selectedOperations = modal.find("#editOperations-{{ $input->id }}").val();
+            var quantityInput = modal.find("#editQuantity-{{ $input->id }}");
 
-    if (selectedOperations !== "Produksi") {
-        quantityInput.prop("disabled", true);
-    } else {
-        quantityInput.prop("disabled", false);
-        quantityInput.val("");
-    }
-});
+            if (selectedOperations !== "Produksi") {
+                quantityInput.prop("disabled", true);
+            } else {
+                quantityInput.prop("disabled", false);
+                quantityInput.val("");
+            }
+        });
 
         $(document).on("change", ".edit-operations-select", function() {
-    var selectedOperation = $(this).val();
-    var quantityInput = $(this).closest("form").find(".edit-quantity-input");
+            var selectedOperation = $(this).val();
+            var quantityInput = $(this).closest("form").find(".edit-quantity-input");
 
-    if (selectedOperation !== "Produksi") {
-        quantityInput.prop("disabled", true);
-    } else {
-        quantityInput.prop("disabled", false);
-        quantityInput.val("");
-    }
-});
-$(".save-edit-button").on("click", function() {
-    var inputId = $(this).data("inputid");
-    var editForm = $("#editForm-" + inputId);
-    var formData = editForm.serialize();
+            if (selectedOperation !== "Produksi") {
+                quantityInput.prop("disabled", true);
+            } else {
+                quantityInput.prop("disabled", false);
+                quantityInput.val("");
+            }
+        });
+        $(".save-edit-button").on("click", function() {
+            var inputId = $(this).data("inputid");
+            var editForm = $("#editForm-" + inputId);
+            var formData = editForm.serialize();
 
-    $.ajax({
-        type: 'POST',
-        url: editForm.attr('action'),
-        data: formData,
-        success: function(response) {
-            var modalId = "#editModal-" + inputId;
-            $(modalId).modal("hide");
+            $.ajax({
+                type: 'POST',
+                url: editForm.attr('action'),
+                data: formData,
+                success: function(response) {
+                    var modalId = "#editModal-" + inputId;
+                    $(modalId).modal("hide");
 
-            // Reload data after a successful edit
-            location.reloadData();
+                    // Menampilkan pesan toast
+                    var toast = $('.toast');
+                    toast.toast('show');
 
-            // Show the toast message
-            var toast = $('.toast');
-            toast.toast('show');
-        },
-        error: function(xhr) {
-            var errors = xhr.responseJSON;
-        }
-    });
-});
+                    // Menyegarkan halaman setelah berhasil edit
+                    location.reload();
+                },
+                error: function(xhr) {
+                    var errors = xhr.responseJSON;
+                }
+            });
+        });
+
+
         $("#operations-select").on("change", function() {
             var selectedOperation = $(this).val();
             var quantityInput = $("#quantity-input");
@@ -290,4 +308,5 @@ $(".save-edit-button").on("click", function() {
         });
     </script>
 </body>
+
 </html>

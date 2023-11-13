@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Input;
@@ -13,7 +14,9 @@ class InputController extends Controller
 {
     public function index(): View
     {
+        // $inputs = 0;
         $inputs = Input::orderBy('Tanggal', 'asc')->paginate(50);
+        // dd($inputs);
 
         return view('input.input', compact('inputs'));
     }
@@ -30,7 +33,7 @@ class InputController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'Tanggal' => 'required|date',
             'PartNumber' => 'required',
             'Operations' => 'required',
@@ -74,12 +77,12 @@ class InputController extends Controller
         return redirect()->route('inputs.index')->with(['success' => 'Data berhasil diperbarui']);
     }
 
+
+
     public function destroy($id): RedirectResponse
     {
         $input = Input::findOrFail($id);
         $input->delete();
         return redirect()->route('inputs.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
-
-
 }
