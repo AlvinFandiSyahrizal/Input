@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Input;
+use App\Models\Tambah;
 use Carbon\Carbon;
 
 use Illuminate\View\View;
@@ -17,15 +18,15 @@ class InputController extends Controller
         return view('input.input', compact('inputs'));
     }
 
-    public function create(): View
-    {
-        return view('input.create');
-    }
+
     // public function create(): View
     // {
-    //     $tambahs = Tambah::pluck('PartNumber', 'PartNumber');
-    //     return view('input.input', compact('tambahs'));
+    //     return view('input.create');
     // }
+    public function create(): View
+    {
+        return view('input.input', compact('tambahdata'));
+    }
 
     public function store(Request $request): RedirectResponse
     {
@@ -73,12 +74,12 @@ class InputController extends Controller
         return redirect()->route('inputs.index')->with(['success' => 'Data berhasil diperbarui']);
     }
 
-
-
     public function destroy($id): RedirectResponse
     {
         $input = Input::findOrFail($id);
         $input->delete();
         return redirect()->route('inputs.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
+
+
 }
